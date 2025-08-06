@@ -2,41 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Samanthahookway Solutions Design System - Vibrant Red & Cream */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Brand Colors - Vibrant Red & Cream */
+    --background: 35 25% 97%;
+    --foreground: 15 15% 15%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 35 25% 97%;
+    --card-foreground: 15 15% 15%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 35 25% 97%;
+    --popover-foreground: 15 15% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - Vibrant Red */
+    --primary: 0 84% 60%;
+    --primary-foreground: 35 25% 97%;
+    --primary-glow: 0 90% 70%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Cream */
+    --secondary: 35 25% 95%;
+    --secondary-foreground: 15 15% 15%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 35 15% 92%;
+    --muted-foreground: 15 10% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 15 100% 96%;
+    --accent-foreground: 0 84% 60%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 35 25% 97%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 35 15% 88%;
+    --input: 35 15% 88%;
+    --ring: 0 84% 60%;
 
-    --radius: 0.5rem;
+    /* Design System Extensions */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(15 85% 65%) 50%, hsl(35 90% 85%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(var(--background)), hsl(35 20% 94%));
+    
+    --shadow-elegant: 0 10px 30px -10px hsl(var(--primary) / 0.2);
+    --shadow-glow: 0 0 40px hsl(var(--primary-glow) / 0.3);
+    --shadow-card: 0 4px 20px -4px hsl(var(--primary) / 0.1);
+    
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.2s ease-out;
+
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -56,41 +70,42 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 15 15% 8%;
+    --foreground: 35 25% 95%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 15 15% 10%;
+    --card-foreground: 35 25% 95%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 15 15% 10%;
+    --popover-foreground: 35 25% 95%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 0 84% 60%;
+    --primary-foreground: 35 25% 97%;
+    --primary-glow: 0 90% 70%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 15 10% 15%;
+    --secondary-foreground: 35 25% 95%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 15 8% 18%;
+    --muted-foreground: 35 15% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 15 10% 15%;
+    --accent-foreground: 0 84% 60%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 35 25% 97%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 15 8% 20%;
+    --input: 15 8% 20%;
+    --ring: 0 84% 60%;
+
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(15 85% 55%) 50%, hsl(35 60% 25%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(var(--background)), hsl(15 10% 12%));
+    
+    --shadow-elegant: 0 10px 30px -10px hsl(var(--primary) / 0.4);
+    --shadow-glow: 0 0 40px hsl(var(--primary-glow) / 0.4);
+    --shadow-card: 0 4px 20px -4px hsl(var(--primary) / 0.2);
   }
 }
 
@@ -100,6 +115,32 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent;
+  }
+  
+  .hero-section {
+    @apply relative min-h-screen bg-gradient-to-br from-background via-secondary to-accent overflow-hidden;
+  }
+  
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-sm border border-border/50 rounded-lg shadow-card;
+  }
+  
+  .cta-button {
+    @apply bg-gradient-to-r from-primary to-primary-glow text-primary-foreground hover:shadow-glow transition-all duration-300 hover:scale-105;
+  }
+  
+  .feature-card {
+    @apply glass-card p-6 transition-all duration-300 hover:shadow-elegant hover:-translate-y-1;
   }
 }
