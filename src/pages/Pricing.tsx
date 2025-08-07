@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { 
   CheckCircle, 
   ArrowRight,
@@ -122,32 +123,42 @@ const Pricing = () => {
     }
   ];
 
+  const { elementRef: heroRef, isVisible: heroVisible } = useScrollAnimation();
+  const { elementRef: plansRef, isVisible: plansVisible } = useScrollAnimation();
+  const { elementRef: featuresRef, isVisible: featuresVisible } = useScrollAnimation();
+
   return (
     <div className="min-h-screen py-8">
       {/* Hero Section */}
       <section className="py-16 bg-gradient-hero">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-5xl font-bold mb-6 gradient-text">
+        <div 
+          ref={heroRef}
+          className={`container mx-auto px-4 text-center transition-all duration-1000 ${
+            heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
+          <h1 className="text-5xl font-bold mb-6 gradient-text animate-fade-in">
             Transparent Pricing for Every Business
           </h1>
-          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto animate-slide-in-left">
             Choose the perfect plan for your email marketing automation needs. All plans include our core features with no hidden fees.
           </p>
           
           {/* Annual/Monthly Toggle */}
-          <div className="flex items-center justify-center space-x-4 mb-8">
-            <span className={`text-lg ${!isAnnual ? 'text-primary font-semibold' : 'text-muted-foreground'}`}>
+          <div className="flex items-center justify-center space-x-4 mb-8 animate-fade-in-up">
+            <span className={`text-lg transition-all duration-300 ${!isAnnual ? 'text-primary font-semibold' : 'text-muted-foreground'}`}>
               Monthly
             </span>
             <Switch
               checked={isAnnual}
               onCheckedChange={setIsAnnual}
+              className="hover-lift"
             />
-            <span className={`text-lg ${isAnnual ? 'text-primary font-semibold' : 'text-muted-foreground'}`}>
+            <span className={`text-lg transition-all duration-300 ${isAnnual ? 'text-primary font-semibold' : 'text-muted-foreground'}`}>
               Annual
             </span>
             {isAnnual && (
-              <Badge className="bg-green-100 text-green-800 border-green-200">
+              <Badge className="bg-green-100 text-green-800 border-green-200 animate-bounce-gentle">
                 Save 20%
               </Badge>
             )}
@@ -158,9 +169,18 @@ const Pricing = () => {
       {/* Pricing Plans */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div 
+            ref={plansRef}
+            className={`grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto transition-all duration-1000 ${
+              plansVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
             {plans.map((plan, index) => (
-              <Card key={index} className={`relative ${plan.popular ? 'border-primary shadow-elegant scale-105' : 'feature-card'}`}>
+              <Card 
+                key={index} 
+                className={`relative hover-lift animate-on-scroll ${plan.popular ? 'border-primary shadow-elegant scale-105' : 'feature-card'}`}
+                style={{ animationDelay: `${index * 0.2}s` }}
+              >
                 {plan.popular && (
                   <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                     <Badge className="bg-primary text-primary-foreground px-4 py-1">
@@ -216,15 +236,24 @@ const Pricing = () => {
       {/* Additional Features */}
       <section className="py-20 bg-gradient-subtle">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Included in All Plans</h2>
-            <p className="text-xl text-muted-foreground">
+          <div 
+            ref={featuresRef}
+            className={`text-center mb-16 transition-all duration-1000 ${
+              featuresVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <h2 className="text-4xl font-bold mb-4 animate-fade-in">Included in All Plans</h2>
+            <p className="text-xl text-muted-foreground animate-slide-in-left">
               Every plan comes with these essential features
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {additionalFeatures.map((feature, index) => (
-              <Card key={index} className="feature-card text-center">
+              <Card 
+                key={index} 
+                className="feature-card text-center hover-lift animate-on-scroll"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
                 <CardHeader>
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary mx-auto mb-4">
                     {feature.icon}

@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { 
   Calendar, 
   User, 
@@ -99,20 +100,29 @@ const Blog = () => {
     "ROI", "Segmentation", "A/B Testing"
   ];
 
+  const { elementRef: heroRef, isVisible: heroVisible } = useScrollAnimation();
+  const { elementRef: featuredRef, isVisible: featuredVisible } = useScrollAnimation();
+  const { elementRef: postsRef, isVisible: postsVisible } = useScrollAnimation();
+
   return (
     <div className="min-h-screen py-8">
       {/* Hero Section */}
       <section className="py-16 bg-gradient-hero">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-5xl font-bold mb-6 gradient-text">
+        <div 
+          ref={heroRef}
+          className={`container mx-auto px-4 text-center transition-all duration-1000 ${
+            heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
+          <h1 className="text-5xl font-bold mb-6 gradient-text animate-fade-in">
             Email Marketing Insights & Strategies
           </h1>
-          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto animate-slide-in-left">
             Expert insights, proven strategies, and actionable tips to help you master email marketing automation 
             and drive better results for your business.
           </p>
-          <div className="max-w-md mx-auto">
-            <div className="relative">
+          <div className="max-w-md mx-auto animate-fade-in-up">
+            <div className="relative hover-lift">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
               <Input 
                 placeholder="Search articles..." 
@@ -126,10 +136,15 @@ const Blog = () => {
       {/* Featured Post */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="mb-12">
-            <h2 className="text-3xl font-bold mb-4">Featured Article</h2>
+          <div 
+            ref={featuredRef}
+            className={`mb-12 transition-all duration-1000 ${
+              featuredVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <h2 className="text-3xl font-bold mb-4 animate-fade-in">Featured Article</h2>
           </div>
-          <Card className="glass-card overflow-hidden">
+          <Card className="glass-card overflow-hidden hover-lift animate-on-scroll">
             <div className="grid grid-cols-1 lg:grid-cols-2">
               <div className="aspect-video lg:aspect-auto bg-gradient-subtle flex items-center justify-center">
                 <div className="text-center p-8">
@@ -173,11 +188,20 @@ const Blog = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Blog Posts */}
-            <div className="lg:col-span-2">
-              <h2 className="text-3xl font-bold mb-8">Latest Articles</h2>
+            <div 
+              ref={postsRef}
+              className={`lg:col-span-2 transition-all duration-1000 ${
+                postsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
+            >
+              <h2 className="text-3xl font-bold mb-8 animate-fade-in">Latest Articles</h2>
               <div className="space-y-8">
                 {blogPosts.map((post, index) => (
-                  <Card key={index} className="feature-card">
+                  <Card 
+                    key={index} 
+                    className="feature-card hover-lift animate-on-scroll"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
                     <CardHeader>
                       <div className="flex items-center justify-between mb-2">
                         <Badge variant="secondary">{post.category}</Badge>

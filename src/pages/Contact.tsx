@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { 
   Mail, 
   Phone, 
@@ -82,15 +83,24 @@ const Contact = () => {
     }
   ];
 
+  const { elementRef: heroRef, isVisible: heroVisible } = useScrollAnimation();
+  const { elementRef: methodsRef, isVisible: methodsVisible } = useScrollAnimation();
+  const { elementRef: formRef, isVisible: formVisible } = useScrollAnimation();
+
   return (
     <div className="min-h-screen py-8">
       {/* Hero Section */}
       <section className="py-16 bg-gradient-hero">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-5xl font-bold mb-6 gradient-text">
+        <div 
+          ref={heroRef}
+          className={`container mx-auto px-4 text-center transition-all duration-1000 ${
+            heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
+          <h1 className="text-5xl font-bold mb-6 gradient-text animate-fade-in">
             Get in Touch
           </h1>
-          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto animate-slide-in-left">
             Ready to transform your email marketing? Our team is here to help you get started 
             with iEMA and answer any questions you may have.
           </p>
@@ -100,15 +110,24 @@ const Contact = () => {
       {/* Contact Methods */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">How Can We Help?</h2>
-            <p className="text-xl text-muted-foreground">
+          <div 
+            ref={methodsRef}
+            className={`text-center mb-16 transition-all duration-1000 ${
+              methodsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <h2 className="text-4xl font-bold mb-4 animate-fade-in">How Can We Help?</h2>
+            <p className="text-xl text-muted-foreground animate-slide-in-left">
               Choose the best way to reach us
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {contactMethods.map((method, index) => (
-              <Card key={index} className="feature-card text-center">
+              <Card 
+                key={index} 
+                className="feature-card text-center hover-lift animate-on-scroll"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
                 <CardHeader>
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary mx-auto mb-4">
                     {method.icon}
@@ -134,9 +153,14 @@ const Contact = () => {
       {/* Contact Form & Office Info */}
       <section className="py-20 bg-gradient-subtle">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div 
+            ref={formRef}
+            className={`grid grid-cols-1 lg:grid-cols-2 gap-12 transition-all duration-1000 ${
+              formVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
             {/* Contact Form */}
-            <Card className="glass-card">
+            <Card className="glass-card hover-lift animate-fade-in">
               <CardHeader>
                 <CardTitle className="text-2xl">Send Us a Message</CardTitle>
                 <CardDescription>

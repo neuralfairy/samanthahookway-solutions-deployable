@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { 
   Search, 
   ArrowRight,
@@ -130,20 +131,29 @@ const FAQ = () => {
     faq.category.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const { elementRef: heroRef, isVisible: heroVisible } = useScrollAnimation();
+  const { elementRef: categoriesRef, isVisible: categoriesVisible } = useScrollAnimation();
+  const { elementRef: faqsRef, isVisible: faqsVisible } = useScrollAnimation();
+
   return (
     <div className="min-h-screen py-8">
       {/* Hero Section */}
       <section className="py-16 bg-gradient-hero">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-5xl font-bold mb-6 gradient-text">
+        <div 
+          ref={heroRef}
+          className={`container mx-auto px-4 text-center transition-all duration-1000 ${
+            heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
+          <h1 className="text-5xl font-bold mb-6 gradient-text animate-fade-in">
             Frequently Asked Questions
           </h1>
-          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto animate-slide-in-left">
             Find quick answers to common questions about iEMA (Email Marketing Automation), 
             our features, pricing, and how to get the most out of our platform.
           </p>
-          <div className="max-w-md mx-auto">
-            <div className="relative">
+          <div className="max-w-md mx-auto animate-fade-in-up">
+            <div className="relative hover-lift">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
               <Input 
                 placeholder="Search FAQs..." 
@@ -159,15 +169,24 @@ const FAQ = () => {
       {/* FAQ Categories */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Browse by Category</h2>
-            <p className="text-xl text-muted-foreground">
+          <div 
+            ref={categoriesRef}
+            className={`text-center mb-16 transition-all duration-1000 ${
+              categoriesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <h2 className="text-4xl font-bold mb-4 animate-fade-in">Browse by Category</h2>
+            <p className="text-xl text-muted-foreground animate-slide-in-left">
               Find answers organized by topic
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {faqCategories.map((category, index) => (
-              <Card key={index} className="feature-card text-center cursor-pointer hover:border-primary transition-colors">
+              <Card 
+                key={index} 
+                className="feature-card text-center cursor-pointer hover:border-primary transition-colors hover-lift animate-on-scroll"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
                 <CardHeader>
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary mx-auto mb-4">
                     {category.icon}
@@ -190,10 +209,15 @@ const FAQ = () => {
       <section className="py-20 bg-gradient-subtle">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4">Common Questions & Answers</h2>
+            <div 
+              ref={faqsRef}
+              className={`text-center mb-12 transition-all duration-1000 ${
+                faqsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
+            >
+              <h2 className="text-4xl font-bold mb-4 animate-fade-in">Common Questions & Answers</h2>
               {searchTerm && (
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground animate-slide-in-left">
                   Showing {filteredFaqs.length} results for "{searchTerm}"
                 </p>
               )}
@@ -201,7 +225,10 @@ const FAQ = () => {
             <Accordion type="single" collapsible className="space-y-4">
               {filteredFaqs.map((faq, index) => (
                 <AccordionItem key={index} value={`item-${index}`}>
-                  <Card className="glass-card">
+                  <Card 
+                    className="glass-card hover-lift animate-on-scroll"
+                    style={{ animationDelay: `${index * 0.05}s` }}
+                  >
                     <AccordionTrigger className="p-6 hover:no-underline">
                       <div className="text-left">
                         <div className="text-sm text-primary font-medium mb-1">{faq.category}</div>

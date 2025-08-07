@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { 
   Mail, 
   Users, 
@@ -92,22 +93,31 @@ const Features = () => {
     }
   ];
 
+  const { elementRef: heroRef, isVisible: heroVisible } = useScrollAnimation();
+  const { elementRef: featuresRef, isVisible: featuresVisible } = useScrollAnimation();
+  const { elementRef: tabsRef, isVisible: tabsVisible } = useScrollAnimation();
+
   return (
     <div className="min-h-screen py-8">
       {/* Hero Section */}
       <section className="py-16 bg-gradient-hero">
-        <div className="container mx-auto px-4 text-center">
-          <Badge className="mb-6 bg-primary/10 text-primary border-primary/20">
+        <div 
+          ref={heroRef}
+          className={`container mx-auto px-4 text-center transition-all duration-1000 ${
+            heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
+          <Badge className="mb-6 bg-primary/10 text-primary border-primary/20 animate-fade-in-up">
             Complete Feature Suite
           </Badge>
-          <h1 className="text-5xl font-bold mb-6 gradient-text">
+          <h1 className="text-5xl font-bold mb-6 gradient-text animate-fade-in">
             Powerful iEMA Features for Modern B2B Marketing
           </h1>
-          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto animate-slide-in-left">
             Discover the comprehensive set of tools designed to automate, optimize, and scale your email marketing campaigns.
           </p>
           <a href="https://salescentri.com/solutions/use-case-navigator/demo">
-            <Button size="lg" className="cta-button">
+            <Button size="lg" className="cta-button hover-lift animate-bounce-gentle">
               Explore Interactive Demo
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
@@ -118,24 +128,37 @@ const Features = () => {
       {/* Core Features */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Core iEMA Capabilities</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <div 
+            ref={featuresRef}
+            className={`text-center mb-16 transition-all duration-1000 ${
+              featuresVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <h2 className="text-4xl font-bold mb-4 animate-fade-in">Core iEMA Capabilities</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-in-left">
               Everything you need to create, manage, and optimize your email marketing automation
             </p>
           </div>
           <div className="space-y-16">
             {coreFeatures.map((feature, index) => (
-              <div key={index} className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
+              <div 
+                key={index} 
+                className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''} animate-on-scroll`}
+                style={{ animationDelay: `${index * 0.2}s` }}
+              >
                 <div className={index % 2 === 1 ? 'lg:order-2' : ''}>
-                  <div className="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center text-primary mb-6">
+                  <div className="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center text-primary mb-6 hover-lift">
                     {feature.icon}
                   </div>
-                  <h3 className="text-3xl font-bold mb-4">{feature.title}</h3>
-                  <p className="text-lg text-muted-foreground mb-6">{feature.description}</p>
+                  <h3 className="text-3xl font-bold mb-4 animate-fade-in">{feature.title}</h3>
+                  <p className="text-lg text-muted-foreground mb-6 animate-slide-in-left">{feature.description}</p>
                   <div className="space-y-3">
                     {feature.benefits.map((benefit, idx) => (
-                      <div key={idx} className="flex items-center space-x-3">
+                      <div 
+                        key={idx} 
+                        className="flex items-center space-x-3 animate-fade-in"
+                        style={{ animationDelay: `${idx * 0.1}s` }}
+                      >
                         <CheckCircle className="h-5 w-5 text-primary" />
                         <span>{benefit}</span>
                       </div>
@@ -143,7 +166,7 @@ const Features = () => {
                   </div>
                 </div>
                 <div className={index % 2 === 1 ? 'lg:order-1' : ''}>
-                  <Card className="feature-card p-8">
+                  <Card className="feature-card p-8 hover-lift group">
                     <div className="aspect-video bg-gradient-subtle rounded-lg flex items-center justify-center">
                       <div className="text-center">
                         <div className="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -163,13 +186,18 @@ const Features = () => {
       {/* Feature Categories */}
       <section className="py-20 bg-gradient-subtle">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Complete Feature Breakdown</h2>
-            <p className="text-xl text-muted-foreground">
+          <div 
+            ref={tabsRef}
+            className={`text-center mb-16 transition-all duration-1000 ${
+              tabsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <h2 className="text-4xl font-bold mb-4 animate-fade-in">Complete Feature Breakdown</h2>
+            <p className="text-xl text-muted-foreground animate-slide-in-left">
               Explore all features by category
             </p>
           </div>
-          <Tabs defaultValue="automation" className="w-full">
+          <Tabs defaultValue="automation" className="w-full animate-fade-in-up">
             <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
               <TabsTrigger value="automation">Automation</TabsTrigger>
               <TabsTrigger value="analytics">Analytics</TabsTrigger>

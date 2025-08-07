@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { 
   Users, 
   Target, 
@@ -99,23 +100,33 @@ const About = () => {
     }
   ];
 
+  const { elementRef: heroRef, isVisible: heroVisible } = useScrollAnimation();
+  const { elementRef: statsRef, isVisible: statsVisible } = useScrollAnimation();
+  const { elementRef: valuesRef, isVisible: valuesVisible } = useScrollAnimation();
+  const { elementRef: teamRef, isVisible: teamVisible } = useScrollAnimation();
+
   return (
     <div className="min-h-screen py-8">
       {/* Hero Section */}
       <section className="py-16 bg-gradient-hero">
-        <div className="container mx-auto px-4 text-center">
-          <Badge className="mb-6 bg-primary/10 text-primary border-primary/20">
+        <div 
+          ref={heroRef}
+          className={`container mx-auto px-4 text-center transition-all duration-1000 ${
+            heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
+          <Badge className="mb-6 bg-primary/10 text-primary border-primary/20 animate-fade-in-up">
             About Samanthahookway Solutions
           </Badge>
-          <h1 className="text-5xl font-bold mb-6 gradient-text">
+          <h1 className="text-5xl font-bold mb-6 gradient-text animate-fade-in">
             Empowering B2B Success Through Email Automation
           </h1>
-          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto animate-slide-in-left">
             Since 2019, we've been helping businesses transform their email marketing with intelligent automation 
             that drives real results and meaningful customer relationships.
           </p>
           <a href="https://salescentri.com/company/about-us">
-            <Button size="lg" className="cta-button">
+            <Button size="lg" className="cta-button hover-lift animate-bounce-gentle">
               Learn More About Our Journey
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
@@ -126,9 +137,18 @@ const About = () => {
       {/* Stats Section */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div 
+            ref={statsRef}
+            className={`grid grid-cols-2 md:grid-cols-4 gap-8 transition-all duration-1000 ${
+              statsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
             {stats.map((stat, index) => (
-              <Card key={index} className="feature-card text-center">
+              <Card 
+                key={index} 
+                className="feature-card text-center hover-lift animate-on-scroll"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
                 <CardContent className="p-6">
                   <div className="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center text-primary mx-auto mb-4">
                     {stat.icon}
@@ -191,15 +211,24 @@ const About = () => {
       {/* Values */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Our Core Values</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <div 
+            ref={valuesRef}
+            className={`text-center mb-16 transition-all duration-1000 ${
+              valuesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <h2 className="text-4xl font-bold mb-4 animate-fade-in">Our Core Values</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto animate-slide-in-left">
               The principles that guide everything we do
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, index) => (
-              <Card key={index} className="feature-card text-center">
+              <Card 
+                key={index} 
+                className="feature-card text-center hover-lift animate-on-scroll"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
                 <CardHeader>
                   <div className="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center text-primary mx-auto mb-4">
                     {value.icon}
@@ -218,15 +247,24 @@ const About = () => {
       {/* Leadership Team */}
       <section className="py-20 bg-gradient-subtle">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Leadership Team</h2>
-            <p className="text-xl text-muted-foreground">
+          <div 
+            ref={teamRef}
+            className={`text-center mb-16 transition-all duration-1000 ${
+              teamVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <h2 className="text-4xl font-bold mb-4 animate-fade-in">Leadership Team</h2>
+            <p className="text-xl text-muted-foreground animate-slide-in-left">
               Meet the experts driving our mission forward
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {team.map((member, index) => (
-              <Card key={index} className="feature-card">
+              <Card 
+                key={index} 
+                className="feature-card hover-lift animate-on-scroll"
+                style={{ animationDelay: `${index * 0.2}s` }}
+              >
                 <CardHeader className="text-center">
                   <div className="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
                     <span className="text-2xl font-bold text-primary-foreground">
