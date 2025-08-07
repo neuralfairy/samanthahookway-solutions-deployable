@@ -141,6 +141,22 @@
   }
   
   .feature-card {
-    @apply glass-card p-6 transition-all duration-300 hover:shadow-elegant hover:-translate-y-1;
+    @apply glass-card p-6 transition-all duration-300 hover:shadow-elegant hover:-translate-y-2 group;
+  }
+  
+  .animate-on-scroll {
+    @apply opacity-0 translate-y-8 transition-all duration-700 ease-out;
+  }
+  
+  .animate-on-scroll.visible {
+    @apply opacity-100 translate-y-0;
+  }
+  
+  .hover-lift {
+    @apply transition-transform duration-300 hover:scale-105 hover:-translate-y-1;
+  }
+  
+  .stagger-animation {
+    animation-delay: var(--animation-delay, 0s);
   }
 }
